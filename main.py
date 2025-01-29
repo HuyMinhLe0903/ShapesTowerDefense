@@ -11,39 +11,36 @@ BACKGROUND_IMAGE = None
 BACKGROUND_SIZE = None
 GUI = None
 CLICK_ENABLED = True
-TUTORIAL_ENABLED = False
 
 def DrawGui():
     global GUI
     global SCREEN
-    for screenName,screenData in screenInfo.SCREEN_LIST.items():
-        if screenName == screenInfo.screenUsing:
-            for key,value in screenData["GUI"].items():           
-                if "button" in key:        
-                    services.DrawButtonOnScreen(
-                        SCREEN,
-                        value["Text"],
-                        value["TextSize"],
-                        value["TextColor"],
-                        value["Color"],
-                        value["SizeX"],
-                        value["SizeY"],
-                        value["PosX"],
-                        value["PosY"],
-                        value["ShapeRect"]
-                    )
-                elif "text" in key:
-                    services.DrawTextOnScreen(
-                        SCREEN,
-                        value["Text"],
-                        value["Color"],
-                        value["TextSize"],
-                        value["PosX"],
-                        value["PosY"],
-                        value["TextRect"],
-                        value["Bold"]
-                    )
-            break
+    screenData = screenInfo.SCREEN_LIST[screenInfo.screenUsing]
+    for key,value in screenData["GUI"].items():           
+        if "button" in key:        
+            services.DrawButtonOnScreen(
+                SCREEN,
+                value["Text"],
+                value["TextSize"],
+                value["TextColor"],
+                value["Color"],
+                value["SizeX"],
+                value["SizeY"],
+                value["PosX"],
+                value["PosY"],
+                value["ShapeRect"]
+            )
+        elif "text" in key:
+            services.DrawTextOnScreen(
+                SCREEN,
+                value["Text"],
+                value["Color"],
+                value["TextSize"],
+                value["PosX"],
+                value["PosY"],
+                value["TextRect"],
+                value["Bold"]
+            )
 
 def UpdateScreen():
     global GUI
@@ -57,100 +54,41 @@ def UpdateScreen():
         "topleft",
         True  
     )
-    
-    if screenInfo.screenUsing == "startScreen":
-        GUI = screenInfo.SCREEN_LIST["startScreen"].get("GUI")
-    elif screenInfo.screenUsing == "mainMenuScreen":
-        GUI = screenInfo.SCREEN_LIST["mainMenuScreen"].get("GUI")
-    elif screenInfo.screenUsing == "setUpTeamScreen":
-        GUI = screenInfo.SCREEN_LIST["setUpTeamScreen"].get("GUI")
-    elif screenInfo.screenUsing == "tutorialScreen":
-        GUI = screenInfo.SCREEN_LIST["tutorialScreen"].get("GUI")
+
+    GUI = screenInfo.SCREEN_LIST[screenInfo.screenUsing].get("GUI")
 
     DrawGui()
-                
+
+def ChangeScreen(targetScreen):
+    global BACKGROUND_IMAGE
+    global BACKGROUND_SIZE
+    global GUI
+    screenInfo.screenUsing = targetScreen
+    BACKGROUND_IMAGE = pygame.image.load(screenInfo.SCREEN_LIST[targetScreen].get("BackGround"))
+    BACKGROUND_SIZE = pygame.transform.scale(
+        BACKGROUND_IMAGE,
+        (screenInfo.SCREEN_LIST[targetScreen].get("WIDTH"),screenInfo.SCREEN_LIST[targetScreen].get("HEIGHT"))
+    )
+    GUI = screenInfo.SCREEN_LIST[targetScreen].get("GUI")
+
 def CheckClick(mouseX,mouseY):
     global BACKGROUND_IMAGE
     global BACKGROUND_SIZE
     global CLICK_ENABLED
     global GUI
     global TUTORIAL_ENABLED
-    if screenInfo.screenUsing == "startScreen":
-        for key,value in GUI.items():
-            if "button" in key:
-                if services.CheckClickButton(
-                    SCREEN,
-                    value["SizeX"],
-                    value["SizeY"],
-                    value["PosX"],
-                    value["PosY"],
-                    value["ShapeRect"],
-                    mouseX,
-                    mouseY
-                ) and value["Function"] == "play game":
-                    screenInfo.screenUsing = "mainMenuScreen"
-                    BACKGROUND_IMAGE = pygame.image.load(screenInfo.SCREEN_LIST["mainMenuScreen"].get("BackGround"))
-                    BACKGROUND_SIZE = pygame.transform.scale(
-                        BACKGROUND_IMAGE,
-                        (screenInfo.SCREEN_LIST["mainMenuScreen"].get("WIDTH"),screenInfo.SCREEN_LIST["mainMenuScreen"].get("HEIGHT"))
-                    )
-    elif screenInfo.screenUsing == "mainMenuScreen":
-        for key,value in GUI.items():
-            if "button" in key:
-                if services.CheckClickButton(
-                    SCREEN,
-                    value["SizeX"],
-                    value["SizeY"],
-                    value["PosX"],
-                    value["PosY"],
-                    value["ShapeRect"],
-                    mouseX,
-                    mouseY
-                ) and value["Function"] == "play mode":
-                    print("Hello world")
-                elif services.CheckClickButton(
-                        SCREEN,
-                        value["SizeX"],
-                        value["SizeY"],
-                        value["PosX"],
-                        value["PosY"],
-                        value["ShapeRect"],
-                        mouseX,
-                        mouseY
-                    ) and value["Function"] == "set up team":
-                        screenInfo.screenUsing = "setUpTeamScreen"
-                        BACKGROUND_IMAGE = pygame.image.load(screenInfo.SCREEN_LIST["setUpTeamScreen"].get("BackGround"))
-                        BACKGROUND_SIZE = pygame.transform.scale(
-                            BACKGROUND_IMAGE,
-                            (screenInfo.SCREEN_LIST["setUpTeamScreen"].get("WIDTH"),screenInfo.SCREEN_LIST["setUpTeamScreen"].get("HEIGHT"))
-                        )
-                elif services.CheckClickButton(
-                    SCREEN,
-                    value["SizeX"],
-                    value["SizeY"],
-                    value["PosX"],
-                    value["PosY"],
-                    value["ShapeRect"],
-                    mouseX,
-                    mouseY
-                ) and value["Function"] == "gacha":
-                    print("hfsdjkf")
-                elif services.CheckClickButton(
-                    SCREEN,
-                    value["SizeX"],
-                    value["SizeY"],
-                    value["PosX"],
-                    value["PosY"],
-                    value["ShapeRect"],
-                    mouseX,
-                    mouseY
-                ) and value["Function"] == "tutorial":
-                    screenInfo.screenUsing = "tutorialScreen"
-                    BACKGROUND_IMAGE = pygame.image.load(screenInfo.SCREEN_LIST["tutorialScreen"].get("BackGround"))
-                    BACKGROUND_SIZE = pygame.transform.scale(
-                        BACKGROUND_IMAGE,
-                        (screenInfo.SCREEN_LIST["tutorialScreen"].get("WIDTH"),screenInfo.SCREEN_LIST["tutorialScreen"].get("HEIGHT"))
-                    )
+    for key,value in GUI.items():
+        if "button" in key and services.CheckClickButton(
+                SCREEN,value["SizeX"],value["SizeY"],
+                value["PosX"],value["PosY"],value["ShapeRect"],
+                mouseX,
+                mouseY
+        ):
+            func = value["Function"]
+            if func is None:
+                return
+            if func and screenInfo.buttonActions[func]:
+                ChangeScreen(screenInfo.buttonActions[func])
 
 def RUN_MAIN_WINDOW(title,bg):
     pygame.init()
@@ -161,12 +99,14 @@ def RUN_MAIN_WINDOW(title,bg):
     global FPS
     global CLICK_ENABLED
     global GUI
+    global WIDTH
+    global HEIGHT
 
     WIDTH = screenInfo.SCREEN_LIST["startScreen"].get("WIDTH")
     HEIGHT = screenInfo.SCREEN_LIST["startScreen"].get("HEIGHT")
 
     SCREEN = pygame.display.set_mode((WIDTH,HEIGHT))
-    SCREEN_NAME = pygame.display.set_caption(title)
+    pygame.display.set_caption(title)
     SCREEN.fill(bg)
 
     BACKGROUND_IMAGE = pygame.image.load(screenInfo.SCREEN_LIST["startScreen"].get("BackGround"))

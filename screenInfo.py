@@ -1,5 +1,19 @@
 screenUsing = "startScreen"
 
+buttonActions = {
+    "play game": "mainMenuScreen",
+    "play mode": None,
+    "set up team": "setUpTeamScreen",
+    "gacha": "gachaScreen",
+    "tutorial": "tutorialScreen",
+    "leave": "mainMenuScreen",
+    "gacha basic": None,
+    "gacha advanced": None,
+    "buy basic": None,
+    "buy advanced": None,
+    "line": None
+}
+
 SCREEN_LIST = {
     "startScreen": {
         "WIDTH": 600,
@@ -81,7 +95,7 @@ SCREEN_LIST = {
         "BackGround": "Image/SetUpTeamBackGround.png",
         "GUI": {
             "button": {
-                "Function": "Leave",
+                "Function": "leave",
                 "Text": "X",
                 "TextSize": 35,
                 "TextColor": "White",
@@ -100,7 +114,7 @@ SCREEN_LIST = {
         "BackGround": "Image/TutorialBackGround.png",
         "GUI": {
             "button": {
-                "Function": "Leave",
+                "Function": "leave",
                 "Text": "X",
                 "TextSize": 35,
                 "TextColor": "White",
@@ -121,13 +135,128 @@ SCREEN_LIST = {
                 "TextRect": "center",
             },
             "text2": {
-                "Text": "Hello, Welcome to Shapes Tower Defense\nButton:\nButton 'MODE' for play with other map and gameplay.\nButton 'SET UP TEAM' for edit and manager your team.\nButton 'GACHA' for get random tower and upgrade your team !!!\n",
+                "Text": "Hello, Welcome to Shapes Tower Defense",
                 "TextSize": 20,
                 "Color": "Black",
-                "Bold": True,
+                "Bold": False,
                 "PosX": 300,
                 "PosY": 100,
                 "TextRect": "center",
+            },
+            "text3": {
+                "Text": "Button 'MODE' for play with other map and gameplay.",
+                "TextSize": 20,
+                "Color": "Black",
+                "Bold": False,
+                "PosX": 300,
+                "PosY": 120,
+                "TextRect": "center",
+            },
+            "text4": {
+                "Text": "Button 'SET UP TEAM' for edit and manager your team.",
+                "TextSize": 20,
+                "Color": "Black",
+                "Bold": False,
+                "PosX": 300,
+                "PosY": 140,
+                "TextRect": "center",
+            },
+            "text5": {
+                "Text": "Button 'GACHA' for get random tower and upgrade your team !!!",
+                "TextSize": 20,
+                "Color": "Black",
+                "Bold": False,
+                "PosX": 300,
+                "PosY": 160,
+                "TextRect": "center",
+            },
+            "text6": {
+                "Text": "...",
+                "TextSize": 30,
+                "Color": "Black",
+                "Bold": False,
+                "PosX": 400,
+                "PosY": 180,
+                "TextRect": "center",
+            }
+        }
+    },
+    "gachaScreen": {
+        "WIDTH": 600,
+        "HEIGHT": 400,
+        "BackGround": "Image/GachaBackGround.png",
+        "GUI": {
+            "button1": {
+                "Function": "leave",
+                "Text": "X",
+                "TextSize": 35,
+                "TextColor": "White",
+                "SizeX": 40,
+                "SizeY": 40,
+                "PosX": 550,
+                "PosY": 10,
+                "Color": "Red",
+                "ShapeRect": "topleft"
+            },
+            "button2": {
+                "Function": "gacha basic",
+                "Text": "Basic Tower",
+                "TextSize": 35,
+                "TextColor": "Black",
+                "SizeX": 200,
+                "SizeY": 200,
+                "PosX": 150,
+                "PosY": 200,
+                "Color": "Yellow",
+                "ShapeRect": "center"
+            },
+            "button3": {
+                "Function": "gacha advanced",
+                "Text": "Advanced Tower",
+                "TextSize": 35,
+                "TextColor": "Black",
+                "SizeX": 200,
+                "SizeY": 200,
+                "PosX": 450,
+                "PosY": 200,
+                "Color": "Orange",
+                "ShapeRect": "center"
+            },
+            "button4": {
+                "Function": "line",
+                "Text": "",
+                "TextSize": 0,
+                "TextColor": "Black",
+                "SizeX": 5,
+                "SizeY": 400,
+                "PosX": 300,
+                "PosY": 200,
+                "Color": "Black",
+                "ShapeRect": "center"
+            },
+            "button5": {
+                "Function": "buy basic",
+                "Text": "Buy: 500",
+                "TextSize": 25,
+                "TextColor": "Black",
+                "SizeX": 100,
+                "SizeY": 30,
+                "PosX": 150,
+                "PosY": 330,
+                "Color": "Green",
+                "ShapeRect": "center"
+            },
+            "button6": {
+                "Function": "buy advanced",
+                "Text": "Buy: 1200",
+                "TextSize": 25,
+                "TextColor": "Black",
+                "SizeX": 100,
+                "SizeY": 30,
+                "PosX": 450,
+                "PosY": 330,
+                "Color": "Green",
+                "ShapeRect": "center"
             }
         }
     }
