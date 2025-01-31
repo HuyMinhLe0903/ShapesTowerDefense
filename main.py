@@ -41,6 +41,19 @@ def DrawGui():
                 value["TextRect"],
                 value["Bold"]
             )
+        elif "net" in key:
+            services.DrawNetOnScreen(
+                SCREEN,
+                value["Col"],
+                value["Row"],
+                value["LineColor"],
+                value["SquareColor"],
+                value["PosX"],
+                value["PosY"],
+                value["SquareWidth"],
+                value["SquareHeight"],
+                value["Rect"]
+            )
 
 def UpdateScreen():
     global GUI

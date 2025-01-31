@@ -46,3 +46,18 @@ def CheckClickButton(SCREEN,BUTTON_SIZE_X,BUTTON_SIZE_Y,BUTTON_POS_X,BUTTON_POS_
     elif BUTTON_RECT == "center":
         rect.center = (BUTTON_POS_X,BUTTON_POS_Y)
     return rect.collidepoint(MOUSE_POS_X, MOUSE_POS_Y) 
+
+def DrawNetOnScreen(SCREEN,COL,ROW,LINE_COLOR,SQUARE_COLOR,POS_X,POS_Y,SQUARE_WIDTH,SQUARE_HEIGHT,RECT):
+    NetWidth = COL * SQUARE_WIDTH
+    NetHeight = ROW * SQUARE_HEIGHT
+    X = POS_X
+    Y = POS_Y
+    DrawButtonOnScreen(SCREEN,"",0,BASIC_COLOR_LIST[SQUARE_COLOR],BASIC_COLOR_LIST[SQUARE_COLOR],NetWidth,NetHeight,POS_X,POS_Y,RECT)
+    for z in range(1,ROW + 1):
+        for i in range(1,COL + 1):
+            rect = pygame.Rect(0,0,SQUARE_WIDTH,SQUARE_HEIGHT)
+            rect.topleft = (X,Y)
+            pygame.draw.rect(SCREEN,BASIC_COLOR_LIST[LINE_COLOR],rect,width = 1)
+            X += SQUARE_WIDTH
+        Y += SQUARE_WIDTH
+        X = POS_X
