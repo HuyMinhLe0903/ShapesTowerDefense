@@ -1,7 +1,6 @@
 import pygame
 import services
 import screenInfo
-import tkinter as tk
 
 WIDTH = None
 HEIGHT = None
@@ -63,7 +62,20 @@ def DrawGui():
                 value["Col"],
                 value["Row"]
             )
-
+        elif "net" in key:
+            services.DrawNetOnScreen(
+                SCREEN,
+                value["Col"],
+                value["Row"],
+                value["LineColor"],
+                value["SquareColor"],
+                value["PosX"],
+                value["PosY"],
+                value["SquareWidth"],
+                value["SquareHeight"],
+                value["Rect"]
+            )
+            
 def UpdateScreen():
     global GUI
     global SCREEN

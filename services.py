@@ -1,26 +1,12 @@
 import pygame
 import data
+import resources
 pygame.init()
-
-BASIC_COLOR_LIST = {
-    "Red": (255,0,0),
-    "Black": (0,0,0),
-    "White": (255,255,255),
-    "Green": (0,255,0),
-    "Blue": (0,0,255),
-    "Yellow": (255,255,0),
-    "Orange": (255,100,0),
-    "Cyan": (0,255,255)
-}
-
-CHARACTERS_IMAGE = {
-    "UnCommon Rect": "Image/characters/UnCommonRect.png"
-}
 
 def DrawTextOnScreen(SCREEN,TEXT,COLOR,SIZE,X,Y,TEXT_RECT,BOLD):
     font = pygame.font.SysFont(None,SIZE,bold = BOLD)   
     if type(COLOR) == str:
-        COLOR = BASIC_COLOR_LIST[COLOR]
+        COLOR = resources.BASIC_COLOR_LIST[COLOR]
     text = font.render(TEXT,True,COLOR)
     textRect = None   
     if TEXT_RECT != "topleft":
@@ -31,7 +17,7 @@ def DrawTextOnScreen(SCREEN,TEXT,COLOR,SIZE,X,Y,TEXT_RECT,BOLD):
     
 def DrawButtonOnScreen(SCREEN,TEXT,TEXT_SIZE,TEXT_COLOR,COLOR,SIZE_X,SIZE_Y,POS_X,POS_Y,SHAPE_RECT):
     if type(COLOR) == str:
-        COLOR = BASIC_COLOR_LIST[COLOR]     
+        COLOR = resources.BASIC_COLOR_LIST[COLOR]     
     rect = pygame.Rect(0,0,SIZE_X,SIZE_Y)   
     if SHAPE_RECT == "topleft":
         rect.topleft = (POS_X,POS_Y)
@@ -57,12 +43,12 @@ def DrawNetOnScreen(SCREEN,COL,ROW,LINE_COLOR,SQUARE_COLOR,POS_X,POS_Y,SQUARE_WI
     NetHeight = ROW * SQUARE_HEIGHT
     X = POS_X
     Y = POS_Y
-    DrawButtonOnScreen(SCREEN,"",0,BASIC_COLOR_LIST[SQUARE_COLOR],BASIC_COLOR_LIST[SQUARE_COLOR],NetWidth,NetHeight,POS_X,POS_Y,RECT)
+    DrawButtonOnScreen(SCREEN,"",0,resources.BASIC_COLOR_LIST[SQUARE_COLOR],resources.BASIC_COLOR_LIST[SQUARE_COLOR],NetWidth,NetHeight,POS_X,POS_Y,RECT)
     for z in range(1,ROW + 1):
         for i in range(1,COL + 1):
             rect = pygame.Rect(0,0,SQUARE_WIDTH,SQUARE_HEIGHT)
             rect.topleft = (X,Y)
-            pygame.draw.rect(SCREEN,BASIC_COLOR_LIST[LINE_COLOR],rect,width = 1)
+            pygame.draw.rect(SCREEN,resources.BASIC_COLOR_LIST[LINE_COLOR],rect,width = 1)
             X += SQUARE_WIDTH
         Y += SQUARE_HEIGHT
         X = POS_X
@@ -78,7 +64,7 @@ def DrawListCharacterTypeNet(SCREEN,POS_X,POS_Y,SQUARE_HEIGHT,SQUARE_WIDTH,COL,R
                 return            
             centerX = x + SQUARE_WIDTH // 2
             centerY = y + SQUARE_HEIGHT // 2
-            image = pygame.image.load(CHARACTERS_IMAGE[characters[indexOfCharactersList]])
+            image = pygame.image.load(resources.CHARACTERS_IMAGE[characters[indexOfCharactersList]])
             imageSize = pygame.transform.scale(image,(SQUARE_WIDTH - 10,SQUARE_HEIGHT - 10))
             rect = imageSize.get_rect(center = (centerX,centerY))
             SCREEN.blit(imageSize,rect)

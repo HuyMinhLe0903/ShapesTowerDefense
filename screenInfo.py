@@ -127,6 +127,26 @@ SCREEN_LIST = {
                 "PosX": 50,
                 "PosY": 20,
                 "Rect": "topleft"
+            },
+            "netTeamUsing": {
+                "Col": 5,
+                "Row": 1,
+                "LineColor": "Black",
+                "SquareColor": "White", 
+                "SquareWidth": 60,
+                "SquareHeight": 60,
+                "PosX": 150,
+                "PosY": 330,
+                "Rect": "topleft"
+            },
+            "text1": {
+                "Text": "Your Team",
+                "TextSize": 25,
+                "Color": "Black",
+                "Bold": True,
+                "PosX": 300,
+                "PosY": 310,
+                "TextRect": "center"
             }
         }
     },
