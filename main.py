@@ -41,7 +41,7 @@ def DrawGui():
                 value["TextRect"],
                 value["Bold"]
             )
-        elif "net" in key:
+        elif "netCharacters" in key:
             services.DrawNetOnScreen(
                 SCREEN,
                 value["Col"],
@@ -53,6 +53,15 @@ def DrawGui():
                 value["SquareWidth"],
                 value["SquareHeight"],
                 value["Rect"]
+            )
+            services.DrawListCharacterTypeNet(
+                SCREEN,
+                value["PosX"],
+                value["PosY"],
+                value["SquareHeight"],
+                value["SquareWidth"],
+                value["Col"],
+                value["Row"]
             )
 
 def UpdateScreen():

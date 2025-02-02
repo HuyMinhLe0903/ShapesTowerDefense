@@ -1,5 +1,6 @@
+import time
 DATA = {
-    "Coin": 0,
+    "Coin": 100,
     "Gem": 0,
-    "Characters": {"UnCommon Character"}
+    "Characters": ["UnCommon Rect"]
 }

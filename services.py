@@ -1,4 +1,5 @@
 import pygame
+import data
 pygame.init()
 
 BASIC_COLOR_LIST = {
@@ -10,6 +11,10 @@ BASIC_COLOR_LIST = {
     "Yellow": (255,255,0),
     "Orange": (255,100,0),
     "Cyan": (0,255,255)
+}
+
+CHARACTERS_IMAGE = {
+    "UnCommon Rect": "Image/characters/UnCommonRect.png"
 }
 
 def DrawTextOnScreen(SCREEN,TEXT,COLOR,SIZE,X,Y,TEXT_RECT,BOLD):
@@ -59,5 +64,25 @@ def DrawNetOnScreen(SCREEN,COL,ROW,LINE_COLOR,SQUARE_COLOR,POS_X,POS_Y,SQUARE_WI
             rect.topleft = (X,Y)
             pygame.draw.rect(SCREEN,BASIC_COLOR_LIST[LINE_COLOR],rect,width = 1)
             X += SQUARE_WIDTH
-        Y += SQUARE_WIDTH
+        Y += SQUARE_HEIGHT
         X = POS_X
+
+def DrawListCharacterTypeNet(SCREEN,POS_X,POS_Y,SQUARE_HEIGHT,SQUARE_WIDTH,COL,ROW):
+    x = POS_X
+    y = POS_Y
+    indexOfCharactersList = 0
+    characters = data.DATA.get("Characters")
+    for z in range(ROW):
+        for i in range(COL):
+            if indexOfCharactersList >= len(characters):
+                return            
+            centerX = x + SQUARE_WIDTH // 2
+            centerY = y + SQUARE_HEIGHT // 2
+            image = pygame.image.load(CHARACTERS_IMAGE[characters[indexOfCharactersList]])
+            imageSize = pygame.transform.scale(image,(SQUARE_WIDTH - 10,SQUARE_HEIGHT - 10))
+            rect = imageSize.get_rect(center = (centerX,centerY))
+            SCREEN.blit(imageSize,rect)
+            x += SQUARE_WIDTH
+            indexOfCharactersList += 1
+        y += SQUARE_HEIGHT
+        x = POS_X

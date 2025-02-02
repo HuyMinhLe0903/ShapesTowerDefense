@@ -1,8 +1,9 @@
+import data
 screenUsing = "startScreen"
 
 buttonActions = {
     "play game": "mainMenuScreen",
-    "play mode": None,
+    "play mode": "modeScreen",
     "set up team": "setUpTeamScreen",
     "gacha": "gachaScreen",
     "tutorial": "tutorialScreen",
@@ -11,7 +12,8 @@ buttonActions = {
     "gacha advanced": None,
     "buy basic": None,
     "buy advanced": None,
-    "line": None
+    "line": None,
+    "play chapters": None
 }
 
 SCREEN_LIST = {
@@ -86,6 +88,15 @@ SCREEN_LIST = {
                 "PosY": 10,
                 "Color": "Black",
                 "ShapeRect": "topleft"
+            },
+            "text1": {
+                "Text": f"Coin:{data.DATA['Coin']}",
+                "TextSize": 30,
+                "Color": "Yellow",
+                "Bold": True,
+                "PosX": 300,
+                "PosY": 10,
+                "TextRect": "center"
             }
         }
     },
@@ -106,9 +117,9 @@ SCREEN_LIST = {
                 "Color": "Red",
                 "ShapeRect": "topleft"
             },
-            "net": {
+            "netCharacters": {
                 "Col": 10,
-                "Row": 7,
+                "Row": 5,
                 "LineColor": "Black",
                 "SquareColor": "White", 
                 "SquareWidth": 50,
@@ -143,7 +154,7 @@ SCREEN_LIST = {
                 "Bold": True,
                 "PosX": 300,
                 "PosY": 50,
-                "TextRect": "center",
+                "TextRect": "center"
             },
             "text2": {
                 "Text": "Hello, Welcome to Shapes Tower Defense",
@@ -152,7 +163,7 @@ SCREEN_LIST = {
                 "Bold": False,
                 "PosX": 300,
                 "PosY": 100,
-                "TextRect": "center",
+                "TextRect": "center"
             },
             "text3": {
                 "Text": "Button 'MODE' for play with other map and gameplay.",
@@ -161,7 +172,7 @@ SCREEN_LIST = {
                 "Bold": False,
                 "PosX": 300,
                 "PosY": 120,
-                "TextRect": "center",
+                "TextRect": "center"
             },
             "text4": {
                 "Text": "Button 'SET UP TEAM' for edit and manager your team.",
@@ -170,7 +181,7 @@ SCREEN_LIST = {
                 "Bold": False,
                 "PosX": 300,
                 "PosY": 140,
-                "TextRect": "center",
+                "TextRect": "center"
             },
             "text5": {
                 "Text": "Button 'GACHA' for get random tower and upgrade your team !!!",
@@ -179,7 +190,7 @@ SCREEN_LIST = {
                 "Bold": False,
                 "PosX": 300,
                 "PosY": 160,
-                "TextRect": "center",
+                "TextRect": "center"
             },
             "text6": {
                 "Text": "...",
@@ -188,7 +199,7 @@ SCREEN_LIST = {
                 "Bold": False,
                 "PosX": 400,
                 "PosY": 180,
-                "TextRect": "center",
+                "TextRect": "center"
             }
         }
     },
@@ -267,6 +278,49 @@ SCREEN_LIST = {
                 "PosX": 450,
                 "PosY": 330,
                 "Color": "Green",
+                "ShapeRect": "center"
+            }
+        }
+    },
+    "modeScreen": {
+        "WIDTH": 600,
+        "HEIGHT": 400,
+        "BackGround": "Image/ModeBackGround.png",
+        "GUI": {
+            "button1": {
+                "Function": "leave",
+                "Text": "X",
+                "TextSize": 35,
+                "TextColor": "White",
+                "SizeX": 20,
+                "SizeY": 20,
+                "PosX": 580,
+                "PosY": 0,
+                "Color": "Red",
+                "ShapeRect": "topleft"
+            },
+            "button2": {
+                "Function": "play chapters",
+                "Text": "CHAPTERS",
+                "TextSize": 35,
+                "TextColor": "Black",
+                "SizeX": 200,
+                "SizeY": 300,
+                "PosX": 150,
+                "PosY": 200,
+                "Color": "Red",
+                "ShapeRect": "center"
+            },
+            "button3": {
+                "Function": "line",
+                "Text": "",
+                "TextSize": 0,
+                "TextColor": "Black",
+                "SizeX": 5,
+                "SizeY": 400,
+                "PosX": 300,
+                "PosY": 200,
+                "Color": "Black",
                 "ShapeRect": "center"
             }
         }
