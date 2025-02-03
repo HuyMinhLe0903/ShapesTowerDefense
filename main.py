@@ -17,9 +17,11 @@ def DrawGui():
     global SCREEN
     global CHECK_CLICK_LIST_POSITION_CHARACTER_TYPE_NET
     screenData = screenInfo.SCREEN_LIST[screenInfo.screenUsing]
+    setUpTeamScreenEnabled = True
     
-    if screenInfo.screenUsing == "setUpTeamScreen":
+    if screenInfo.screenUsing != "setUpTeamScreen":
         CHECK_CLICK_LIST_POSITION_CHARACTER_TYPE_NET = None
+        setUpTeamScreenEnabled = False
     
     for key,value in screenData["GUI"].items():           
         if "button" in key:        
@@ -68,14 +70,15 @@ def DrawGui():
                 value["Col"],
                 value["Row"]
             )
-            CHECK_CLICK_LIST_POSITION_CHARACTER_TYPE_NET = services.CreateListPositionCharacterTypeNet(
-                value["PosX"],
-                value["PosY"],
-                value["SquareHeight"],
-                value["SquareWidth"],
-                value["Col"],
-                value["Row"]
-            )
+            if setUpTeamScreenEnabled:
+                CHECK_CLICK_LIST_POSITION_CHARACTER_TYPE_NET = services.CreateListPositionCharacterTypeNet(
+                    value["PosX"],
+                    value["PosY"],
+                    value["SquareHeight"],
+                    value["SquareWidth"],
+                    value["Col"],
+                    value["Row"]
+                )
         elif "net" in key:
             services.DrawNetOnScreen(
                 SCREEN,
