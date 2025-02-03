@@ -10,11 +10,17 @@ BACKGROUND_IMAGE = None
 BACKGROUND_SIZE = None
 GUI = None
 CLICK_ENABLED = True
+CHECK_CLICK_LIST_POSITION_CHARACTER_TYPE_NET = None
 
 def DrawGui():
     global GUI
     global SCREEN
+    global CHECK_CLICK_LIST_POSITION_CHARACTER_TYPE_NET
     screenData = screenInfo.SCREEN_LIST[screenInfo.screenUsing]
+    
+    if screenInfo.screenUsing == "setUpTeamScreen":
+        CHECK_CLICK_LIST_POSITION_CHARACTER_TYPE_NET = None
+    
     for key,value in screenData["GUI"].items():           
         if "button" in key:        
             services.DrawButtonOnScreen(
@@ -55,6 +61,14 @@ def DrawGui():
             )
             services.DrawListCharacterTypeNet(
                 SCREEN,
+                value["PosX"],
+                value["PosY"],
+                value["SquareHeight"],
+                value["SquareWidth"],
+                value["Col"],
+                value["Row"]
+            )
+            CHECK_CLICK_LIST_POSITION_CHARACTER_TYPE_NET = services.CreateListPositionCharacterTypeNet(
                 value["PosX"],
                 value["PosY"],
                 value["SquareHeight"],
@@ -111,6 +125,8 @@ def CheckClick(mouseX,mouseY):
     global CLICK_ENABLED
     global GUI
     global TUTORIAL_ENABLED
+    global CHECK_CLICK_LIST_POSITION_CHARACTER_TYPE_NET
+    
     for key,value in GUI.items():
         if "button" in key and services.CheckClickButton(
                 SCREEN,value["SizeX"],value["SizeY"],
@@ -123,6 +139,9 @@ def CheckClick(mouseX,mouseY):
                 return
             if func and screenInfo.buttonActions[func]:
                 ChangeScreen(screenInfo.buttonActions[func])
+    if CHECK_CLICK_LIST_POSITION_CHARACTER_TYPE_NET != None:
+        result = services.CheckClickForListPositionCharacterTypeNet(CHECK_CLICK_LIST_POSITION_CHARACTER_TYPE_NET,mouseX,mouseY)
+        print(result)
 
 def RUN_MAIN_WINDOW(title,bg):
     pygame.init()

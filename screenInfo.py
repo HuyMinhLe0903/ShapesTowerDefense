@@ -117,7 +117,7 @@ SCREEN_LIST = {
                 "Color": "Red",
                 "ShapeRect": "topleft"
             },
-            "netCharacters": {
+            "netCharactersList": {
                 "Col": 10,
                 "Row": 5,
                 "LineColor": "Black",

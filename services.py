@@ -53,6 +53,54 @@ def DrawNetOnScreen(SCREEN,COL,ROW,LINE_COLOR,SQUARE_COLOR,POS_X,POS_Y,SQUARE_WI
         Y += SQUARE_HEIGHT
         X = POS_X
 
+def CreateListPositionCharacterTypeNet(POS_X,POS_Y,SQUARE_WIDTH,SQUARE_HEIGHT,COL,ROW):
+    LIST = []
+    index = 0
+    X = POS_X
+    Y = POS_Y    
+    for z in range(ROW):
+        for i in range(COL):  
+            x1 = X
+            x2 = X + SQUARE_WIDTH
+            y1 = Y
+            y2 = Y + SQUARE_HEIGHT
+            character = "None"
+            if index < len(data.DATA.get("Characters")):
+                character = data.DATA.get("Characters")[index]
+            LIST.append(f"{x1}-{x2}-{y1}-{y2}-{character}")      
+            X += SQUARE_WIDTH
+            index += 1
+        Y += SQUARE_HEIGHT
+        X = POS_X
+        index += 1
+    return LIST
+
+def CheckClickForListPositionCharacterTypeNet(LIST,X,Y):
+    for index in LIST:
+        x1 = ""
+        x2 = ""
+        y1 = ""
+        y2 = ""
+        character = ""
+        quantitySpecialChar = 0 # char "-"
+        for char in index:
+            if char != "-":
+                if quantitySpecialChar == 0:
+                    x1 = x1 + char
+                elif quantitySpecialChar == 1:
+                    x2 = x2 + char
+                elif quantitySpecialChar == 2:
+                    y1 = y1 + char
+                elif quantitySpecialChar == 3:
+                    y2 = y2 + char
+                elif quantitySpecialChar == 4:
+                    character = character + char
+            elif char == "-":
+                quantitySpecialChar += 1
+        if X >= int(x1) and X <= int(x2) and Y >= int(y1) and Y <= int(y2):
+            return character
+    return "..." 
+                
 def DrawListCharacterTypeNet(SCREEN,POS_X,POS_Y,SQUARE_HEIGHT,SQUARE_WIDTH,COL,ROW):
     x = POS_X
     y = POS_Y
